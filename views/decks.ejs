@@ -1,0 +1,49 @@
+<%- include('header') %>
+
+<div id="deck-wrapper">
+    <div class="df p3" id="deck-header">
+        <button class="button" id="add-deck">Add Deck</button>
+        <h3>My Decks</h3>
+        <button class="button" id="delete-deck">Delete Deck</button>
+    </div>
+    <div class="df0 p3" id="deck-container">
+        <div class="df0 main-deck">
+            <% for(let i = 0; i < decks.length; i++){ %>
+                <a href="/decks/<%= decks[i].id %>">
+                    <div class="deck">
+                        <p><%= decks[i].name %></p>
+                    </div>
+                </a>
+            <% } %>
+        </div>
+    </div>
+
+    <div class="p3 dn" id="add-deck-form">
+        <div class="main-card df0">
+            <label for="deck-name">Name</label>
+            <input type="text" name="deck-name" id="deck-name">
+        </div>
+
+        <div class="df">
+            <button type="button" id="" class="button deck-cancel-btn">Cancel</button>
+            <button type="button" id="add-deck-btn" class="action-btn">Submit</button>
+        </div>
+    </div>
+
+    <div class="p3 dn" id="delete-deck-form">
+        <div class="main-card df0">
+            <label for="select-deck">Select a deck to delete: </label>
+            <select name="select-deck" id="select-deck">
+                <% for(let i = 0; i < decks.length; i++){ %>
+                    <option value="<%= decks[i].id %>"><%= decks[i].name %></option>
+                <% } %>
+            </select>
+        </div>
+        <div class="df">
+            <button type="button" id="" class="button deck-cancel-btn">Cancel</button>
+            <button type="button" id="delete-deck-btn" class="action-btn">Delete</button>
+        </div>
+    </div>
+</div>
+
+<%- include('footer') %>

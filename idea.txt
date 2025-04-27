@@ -1,0 +1,9 @@
+For quiz mode, alternative options are pulled from other cards in the deck.
+Time mode for quizes?
+Quiz stats page?
+Make cards generic or deck-bound?
+Make categories table?
+
+Quiz length: all or customizable?
+Make cards and decks many-to-many?
+Starting card?

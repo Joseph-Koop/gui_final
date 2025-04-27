@@ -1,0 +1,110 @@
+<%- include('header') %>
+
+<div id="card-page" class="df0">
+    <div id="card-wrapper">
+        <div class="p3" id="card-header">
+            <h2 class="tc"><%= deck.name %></h2>
+    
+            <div class="mode-buttons">
+                <h3>Mode:</h3>
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/"><input type="radio" name="mode" id="study-mode" checked><label for="study-mode">  Study (Normal)</label></div>
+                <!-- <div class="mode-option" data-href="/decks/<%= deck.id %>/easyquiz"><input type="radio" name="mode" id="easy-mode"><label for="easy-mode">  Quiz (Easy)</label></div> -->
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/hardquiz"><input type="radio" name="mode" id="hard-mode"><label for="hard-mode">  Quiz (Hard)</label></div>
+            </div>
+            <div class="df">
+                <button class="button" id="add-card">Add Card</button>
+                <button class="button" id="edit-card">Edit Card</button>
+                <button class="button" id="delete-card">Delete Card</button>
+                <a href="/"><button class="button">Back</button></a>
+            </div>
+        </div>
+
+        <div class="p3" id="card-container">
+            <div id="main-card" class="df0 main-card trigger">
+                <p class="p2"><%= cards[0].question %></p>
+            </div>
+            <div class="df">
+                <div>
+                    <button id="move-start" class="control-btn">
+                        <i data-lucide="chevrons-left"></i>
+                        <span class="tooltip">First</span>
+                    </button>
+                    <button id="move-back" class="control-btn">
+                        <i data-lucide="chevron-left"></i>
+                        <span class="tooltip">Previous</span>
+                    </button>
+                </div>
+                <div>
+                    <button id="shuffle" class="control-btn">
+                        <i data-lucide="shuffle"></i>
+                        <span class="tooltip">Shuffle</span>
+                    </button>
+                </div>
+                <div>
+                    <button id="move-forward" class="control-btn">
+                        <i data-lucide="chevron-right"></i>
+                        <span class="tooltip">Next</span>
+                    </button>
+                    <button id="move-end" class="control-btn">
+                        <i data-lucide="chevrons-right"></i>
+                        <span class="tooltip">Last</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="p3 dn" id="add-card-form">
+            <div class="main-card df0">
+                <label for="card-quesiton">Question</label>
+                <input type="text" name="card-quesiton" id="card-quesiton">
+
+                <label for="card-answer">Answer</label>
+                <input type="text" name="card-answer" id="card-answer">
+            </div>
+
+            <div class="df">
+                <button type="button" id="" class="button cancel-btn">Cancel</button>
+                <button type="button" id="add-submit-btn" class="action-btn">Submit</button>
+            </div>
+        </div>
+
+        <div class="p3 dn" id="edit-card-form">
+            <div class="main-card df0">
+                <label for="card-quesiton">Question</label>
+                <input type="text" name="card-quesiton" id="card-quesiton">
+
+                <label for="card-answer">Answer</label>
+                <input type="text" name="card-answer" id="card-answer">
+            </div>
+
+            <div class="df">
+                <button type="button" id="" class="button cancel-btn">Cancel</button>
+                <button type="button" id="edit-submit-btn" class="action-btn">Update</button>
+            </div>
+        </div>
+
+        <div class="p3 dn" id="delete-card-form">
+            <div class="main-card df0">
+                <p>Are you sure you want to delete this card?</p>
+            </div>
+            <div class="df">
+                <button type="button" id="" class="button cancel-btn">Cancel</button>
+                <button type="button" id="delete-submit-btn" class="action-btn">Delete</button>
+            </div>
+        </div>
+
+        <button id="expand-btn" class="expand-btn df">>></button>
+    </div>
+    <div id="sidebar" class="p1 dn">
+        <ul>
+            <% for(let i = 0; i < cards.length; i++){ %>
+                <li data-name="<%= cards[i].question %>" class="card-list"><p class="di"><%= cards[i].question %></p><p class="di"><%= cards[i].answer %></p></li>
+            <% } %>
+        </ul>
+    </div>
+</div>
+
+<script>
+    const cards = <%- JSON.stringify(cards) %>;
+</script>
+<%- include('footer') %>

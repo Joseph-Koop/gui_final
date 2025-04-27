@@ -1,0 +1,334 @@
+/* styles.css */
+
+:root{
+    --dark:rgb(29, 28, 27);
+    --light:rgb(235, 230, 194);
+    --blue1:rgb(83, 151, 241);
+    --blue2:rgb(38, 87, 204);
+    --blue3:rgb(32, 48, 104);
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    text-decoration: none;
+    border-collapse: collapse;
+}
+
+body{
+    background-color: black;
+}
+
+
+
+/* divs */
+
+#deck-wrapper{
+    background-color: var(--blue1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border: 5px solid var(--blue2);
+    display: inline-block;
+}
+
+#deck-container{
+    gap: 50px;
+    flex-wrap: wrap;
+    border-top: 5px solid var(--blue2);
+}
+
+.deck{
+    width: 125px;
+    height: 250px;
+    background-color: var(--blue2);
+    text-align: center;
+    line-height: 250px;
+    border-radius: 25px;
+    color: var(--blue3);
+}
+
+.deck:hover{
+    background-color: var(--blue3);
+    border: 2px solid var(--blue2);
+}
+
+.deck:hover p{
+    color: white !important;
+}
+
+#card-page{
+    background-color: var(--blue1);
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#card-wrapper{
+    background-color: var(--blue1);
+    border: 5px solid var(--blue2);
+    display: inline-block;
+}
+
+#card-container, #add-card-form, #edit-card-form, #delete-card-form, #deck-container, #add-deck-form, #delete-deck-form{
+    border-top: 5px solid var(--blue2);
+    /* overflow: hidden; */
+}
+
+.main-card{
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 300px;
+    background-color: var(--blue2);
+    border-radius: 25px;
+    margin-bottom: 3rem;
+    flex-direction: column;
+}
+
+.main-deck{
+    gap: 1rem;
+    position: relative;
+    align-items: center;
+    justify-content: center;
+    width: 600px;
+    height: 300px;
+    background-color: var(--blue1);
+    border-radius: 25px;
+    margin-bottom: 3rem;
+}
+
+#main-card{
+    font-size: 30px;
+}
+
+#main-card p{   
+    color: white;
+}
+
+.trigger:hover{
+    border: 2px solid var(--dark);
+    cursor: pointer;
+}
+
+#sidebar{
+    border: 5px solid var(--blue2);
+    background-color: var(--blue2);
+}
+
+#sidebar ul{   
+    list-style: none;
+}
+
+#sidebar li{   
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+}
+
+.card-list{
+    padding: 0.5rem;
+}
+
+.card-list:hover{
+    cursor: pointer;
+    background-color: var(--blue3);
+    color: white;
+}
+
+#score-board{
+    padding-bottom: 2rem;
+}
+
+#answer-container{
+    padding-bottom: 2rem;
+}
+
+
+
+/* buttons */
+
+.button{
+    background-color: var(--blue1);
+    border: 2px solid var(--blue2);
+    color: var(--blue2);
+    padding: 5px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+input{
+    background-color: var(--light);
+    border: 2px solid var(--blue2);
+    color: var(--blue2);
+    padding: 5px;
+    border-radius: 5px;
+}
+
+select{
+    background-color: var(--blue1);
+    border: 2px solid var(--blue2);
+    color: var(--blue2);
+    margin-top: 2rem;
+    padding: 5px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.action-btn{
+    background-color: var(--blue2);
+    border: 2px solid var(--blue3);
+    color: var(--blue3);
+    padding: 5px;
+    border-radius: 5px;
+    width: 100px;
+}
+
+.expand-btn{
+    background-color: var(--blue2);
+    border: 2px solid var(--blue2);
+    color: var(--blue3);
+    border-radius: 5px;
+    height: 50px;
+    position: absolute;
+    bottom: 50%;
+    left: 99.5%;
+    font-weight: bold;
+}
+
+.control-btn:hover .tooltip{
+    visibility: visible;
+}
+
+.control-btn{
+    background-color: var(--blue1);
+    border: 2px solid var(--blue2);
+    color: var(--blue2);
+    padding: 5px;
+    border-radius: 5px;
+    position: relative;
+    display: inline-block;
+}
+
+button:hover{
+    background-color: var(--blue3);
+    cursor: pointer;
+    color: white !important;
+}
+
+button:hover svg path{
+    color: white !important;
+}
+
+.mode-buttons{
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+    display: grid;
+    gap: 5px;
+    grid-template-columns: 1fr;
+}
+
+
+
+/* tooltips */
+
+.tooltip{
+    color: white;
+    background-color: var(--blue2);
+    padding: 5px;
+    width: 75px;
+    border-radius: 5px;
+    visibility: hidden;
+    position: absolute;
+    bottom: 125%;
+    left: 50%;
+    margin-left: -37.5px;
+    z-index: 1;
+}
+
+.tooltip::after{
+    content: " ";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border: 5px solid;
+    border-color: var(--blue2) transparent transparent;
+}
+
+
+
+/* animations */
+
+.flip{
+    animation: flip 0.5s ease-in-out;
+}
+
+.text-flip{
+    animation: text-flip 0.5s ease-in-out;
+}
+
+@keyframes flip{
+    from { transform: rotateX(0deg); }
+    to { transform: rotateX(180deg); }
+}
+
+@keyframes text-flip{
+    from { transform: rotateX(0deg); }
+    to { transform: rotateX(-180deg); }
+}
+
+.slide-left{
+    animation: slide-left 0.25s ease-out forwards;
+}
+
+.slide-right{
+    animation: slide-right 0.25s ease-out forwards;
+}
+
+@keyframes slide-left{
+    from { transform: translateX(-200%); }
+    to { transform: translateX(0); }
+}
+
+@keyframes slide-right{
+    from { transform: translateX(200%); }
+    to { transform: translateX(0); }
+}
+
+
+
+/* general */
+
+.df0{ display: flex }
+.df{ 
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.p1{ padding: 1rem; }
+.p2{ padding: 2rem; }
+.p3{ padding: 3rem; }
+.p4{ padding: 4rem; }
+.p5{ padding: 5rem; }
+
+.m1{ margin: 1rem; }
+.m2{ margin: 2rem; }
+.m3{ margin: 3rem; }
+.m4{ margin: 4rem; }
+.m5{ margin: 5rem; }
+
+.w100{ width: 100%; }
+.w75{ width: 75%; }
+.w50{ width: 50%; }
+.w25{ width: 25%; }
+
+.tc{ text-align: center; }
+.di{ display: inline; }
+.dn{ display: none; }
+.pb1{ padding-bottom: 1rem; }

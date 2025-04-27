@@ -1,0 +1,46 @@
+<%- include('header') %>
+
+<div id="card-page" class="df0">
+    <div id="card-wrapper">
+        <div class="p3" id="card-header">
+            <h2 class="tc"><%= deck.name %></h2>
+    
+            <div class="mode-buttons">
+                <h3>Mode:</h3>
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/"><input type="radio" name="mode" id="study-mode"><label for="study-mode">  Study (Normal)</label></div>
+                <!-- <div class="mode-option" data-href="/decks/<%= deck.id %>/easyquiz"><input type="radio" name="mode" id="easy-mode"><label for="easy-mode">  Quiz (Easy)</label></div> -->
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/hardquiz"><input type="radio" name="mode" id="hard-mode" checked><label for="hard-mode">  Quiz (Hard)</label></div>
+            </div>
+            <div class="df">
+                <a href="/"><button class="button">Back</button></a>
+            </div>
+        </div>
+
+        <div class="p3" id="card-container">
+            <div id="score-board">
+                <p class="di">Score:</p>
+                <p class="di" id="correct-score">0</p>
+                <p class="di"> / </p>
+                <p class="di" id="total-score">0</p>
+            </div>
+            <div class="df0 main-card" id="main-card">
+                <p class="p2"><%= cards[0].question %></p>
+            </div>
+            <div class="df">
+                <div id="answer-container">
+                    <input type="text" id="answer-attempt">
+                    <button type="submit" class="button" id="answer-button">Enter</button>
+                </div>
+                <div>
+                    <button id="restart" class="control-btn">
+                        <i data-lucide="rotate-ccw"></i>
+                        <span class="tooltip">Restart</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+<script>
+    const cards = <%- JSON.stringify(cards) %>;
+</script>
+<%- include('footer') %>
