@@ -8,13 +8,17 @@
     </div>
     <div class="df0 p3" id="deck-container">
         <div class="df0 main-deck">
-            <% for(let i = 0; i < decks.length; i++){ %>
-                <a href="/decks/<%= decks[i].id %>">
-                    <div class="deck">
-                        <p><%= decks[i].name %></p>
-                    </div>
-                </a>
-            <% } %>
+            <ul>
+                <% for(let i = 0; i < decks.length; i++){ %>
+                    <li class="p1">
+                        <a href="/decks/<%= decks[i].id %>">
+                            <div class="deck">
+                                <p><%= decks[i].name %></p>
+                            </div>
+                        </a>
+                    </li>
+                <% } %>
+            </ul>
         </div>
     </div>
 

@@ -3,9 +3,9 @@
 :root{
     --dark:rgb(29, 28, 27);
     --light:rgb(235, 230, 194);
-    --blue1:rgb(83, 151, 241);
-    --blue2:rgb(38, 87, 204);
-    --blue3:rgb(32, 48, 104);
+    --blue1: #AFDDE5;
+    --blue2: #0FA4AF;
+    --blue3: #024950;
 }
 
 *{
@@ -14,10 +14,11 @@
     padding: 0;
     text-decoration: none;
     border-collapse: collapse;
+    list-style: none;
 }
 
 body{
-    background-color: black;
+    background-color: #003135;
 }
 
 
@@ -31,7 +32,9 @@ body{
     left: 50%;
     transform: translate(-50%, -50%);
     border: 5px solid var(--blue2);
-    display: inline-block;
+    width: 1400px;
+    height: 900px;
+    /* display: inline-block; */
 }
 
 #deck-container{
@@ -41,11 +44,11 @@ body{
 }
 
 .deck{
-    width: 125px;
-    height: 250px;
+    width: 900px;
+    height: 50px;
     background-color: var(--blue2);
     text-align: center;
-    line-height: 250px;
+    line-height: 50px;
     border-radius: 25px;
     color: var(--blue3);
 }
@@ -70,7 +73,9 @@ body{
 #card-wrapper{
     background-color: var(--blue1);
     border: 5px solid var(--blue2);
-    display: inline-block;
+    /* display: inline-block; */
+    width: 1400px;
+    height: 900px;
 }
 
 #card-container, #add-card-form, #edit-card-form, #delete-card-form, #deck-container, #add-deck-form, #delete-deck-form{
@@ -79,6 +84,7 @@ body{
 }
 
 .main-card{
+    margin: auto;
     position: relative;
     align-items: center;
     justify-content: center;
@@ -91,6 +97,7 @@ body{
 }
 
 .main-deck{
+    margin: auto;
     gap: 1rem;
     position: relative;
     align-items: center;
@@ -115,26 +122,31 @@ body{
     cursor: pointer;
 }
 
-#sidebar{
+#card-sidebar, #deck-sidebar{
     border: 5px solid var(--blue2);
     background-color: var(--blue2);
+
+    transrom: translateX(100%);
+    opacity: 0;
+    transition: transform 0.3s ease opacity 0.3s ease;
 }
 
-#sidebar ul{   
-    list-style: none;
+#card-sidebar.active, #deck-sidebar.active{
+    transform: translateX(0);
+    opacity: 1;
 }
 
-#sidebar li{   
+#card-sidebar li, #deck-sidebar li{   
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 2rem;
 }
 
-.card-list{
+.card-list, .deck-list{
     padding: 0.5rem;
 }
 
-.card-list:hover{
+.card-list:hover, .deck-list:hover{
     cursor: pointer;
     background-color: var(--blue3);
     color: white;
@@ -147,6 +159,7 @@ body{
 #answer-container{
     padding-bottom: 2rem;
 }
+
 
 
 
@@ -188,7 +201,7 @@ select{
     width: 100px;
 }
 
-.expand-btn{
+.expand-btn, .expand-deck-btn{
     background-color: var(--blue2);
     border: 2px solid var(--blue2);
     color: var(--blue3);
@@ -196,8 +209,15 @@ select{
     height: 50px;
     position: absolute;
     bottom: 50%;
-    left: 99.5%;
     font-weight: bold;
+}
+
+.expand-btn{
+    left: 99.5%;
+}
+
+.expand-deck-btn{
+    right: 99.5%;
 }
 
 .control-btn:hover .tooltip{

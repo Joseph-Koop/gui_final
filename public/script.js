@@ -17,11 +17,22 @@ $(document).ready( function(){
     }
 
     function toggleMenu(){
-        $('#sidebar').toggleClass('dn');
+        $('#deck-sidebar').addClass('dn').removeClass('active');
+        $('#card-sidebar').toggleClass('dn').toggleClass('active');
         if($('#expand-btn').text() == '>>'){
             $('#expand-btn').text('<<');
         }else{
             $('#expand-btn').text('>>');
+        }
+    }
+
+    function toggleDeckMenu(){
+        $('#card-sidebar').addClass('dn').removeClass('active');
+        $('#deck-sidebar').toggleClass('dn').toggleClass('active');
+        if($('#expand-deck-btn').text() == '<<'){
+            $('#expand-deck-btn').text('>>');
+        }else{
+            $('#expand-deck-btn').text('<<');
         }
     }
 
@@ -111,6 +122,10 @@ $(document).ready( function(){
     $('#expand-btn').on('click', function(){
         toggleMenu();
     });
+
+    $('#expand-deck-btn').on('click', function(){
+        toggleDeckMenu();
+    });
         
     $('#move-forward').on('click', function(){
         moveForward();
@@ -169,6 +184,12 @@ $(document).ready( function(){
         index = cards.findIndex(card => card.question == $(this).data('name'));
         toggleMenu();
         reset();
+    });
+
+    $('.deck-list').on('click', function(){
+        console.log($(this).data('id'));
+        id=$(this).data('id');
+        window.location.href = `/decks/${id}`;
     });
 
     $('#add-card').on('click', function(){
@@ -236,14 +257,6 @@ $(document).ready( function(){
     $('#delete-deck').on('click', function(){
         hideAllDeckForms();
         $('#delete-deck-form').removeClass('dn');
-    });
-
-    $('#add-deck-btn').on('click', function(){
-        hideDeckForms();
-    });
-
-    $('#delete-deck-btn').on('click', function(){
-        hideDeckForms();
     });
 });
 

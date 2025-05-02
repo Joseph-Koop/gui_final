@@ -1,6 +1,13 @@
 <%- include('header') %>
 
 <div id="card-page" class="df0">
+    <div id="deck-sidebar" class="p1 dn">
+        <ul>
+            <% for(let i = 0; i < decks.length; i++){ %>
+                <li data-id="<%= decks[i].id %>" class="deck-list"><p class="di"><%= decks[i].name %></p></li>
+            <% } %>
+        </ul>
+    </div>
     <div id="card-wrapper">
         <div class="p3" id="card-header">
             <h2 class="tc"><%= deck.name %></h2>
@@ -23,7 +30,7 @@
             <div id="main-card" class="df0 main-card trigger">
                 <p class="p2"><%= cards[0].question %></p>
             </div>
-            <div class="df">
+            <div class="df" id="card-buttons">
                 <div>
                     <button id="move-start" class="control-btn">
                         <i data-lucide="chevrons-left"></i>
@@ -94,8 +101,9 @@
         </div>
 
         <button id="expand-btn" class="expand-btn df">>></button>
+        <button id="expand-deck-btn" class="expand-deck-btn df"><<</button>
     </div>
-    <div id="sidebar" class="p1 dn">
+    <div id="card-sidebar" class="p1 dn">
         <ul>
             <% for(let i = 0; i < cards.length; i++){ %>
                 <li data-name="<%= cards[i].question %>" class="card-list"><p class="di"><%= cards[i].question %></p><p class="di"><%= cards[i].answer %></p></li>

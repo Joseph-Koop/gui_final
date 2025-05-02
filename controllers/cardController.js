@@ -16,9 +16,11 @@ export const viewCards = async (req, res) => {
     try{
         const cards = await viewCardsDB(id);
         const deck = await selectDeckDB(id);
+        const decks = await viewDecksDB();
         res.render('cards', {
             cards,
-            deck
+            deck,
+            decks
         });
     }catch(error){
         res.status(500).send("An error occured while fetching cards.")
