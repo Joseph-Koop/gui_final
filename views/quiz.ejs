@@ -1,15 +1,17 @@
 <%- include('header') %>
 
-<div id="card-page" class="df0">
-    <div id="card-wrapper">
+<div id="card-page" class="df1 w75">
+    <div id="card-wrapper" class="w100">
+        
+        <div id="success-message" class="dn m1 p1 success-message success-border"></div>
+        
         <div class="p3" id="card-header">
             <h2 class="tc"><%= deck.name %></h2>
     
             <div class="mode-buttons">
                 <h3>Mode:</h3>
-                <div class="mode-option" data-href="/decks/<%= deck.id %>/"><input type="radio" name="mode" id="study-mode"><label for="study-mode">  Study (Normal)</label></div>
-                <!-- <div class="mode-option" data-href="/decks/<%= deck.id %>/easyquiz"><input type="radio" name="mode" id="easy-mode"><label for="easy-mode">  Quiz (Easy)</label></div> -->
-                <div class="mode-option" data-href="/decks/<%= deck.id %>/hardquiz"><input type="radio" name="mode" id="hard-mode" checked><label for="hard-mode">  Quiz (Hard)</label></div>
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/"><input type="radio" name="mode" id="study-mode"><label for="study-mode">  Study</label></div>
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/quiz"><input type="radio" name="mode" id="hard-mode" checked><label for="hard-mode">  Quiz</label></div>
             </div>
             <div class="df">
                 <a href="/"><button class="button">Back</button></a>
@@ -24,12 +26,16 @@
                 <p class="di" id="total-score">0</p>
             </div>
             <div class="df0 main-card" id="main-card">
-                <p class="p2"><%= cards[0].question %></p>
+                <p class="p2">
+                    <% if(cards.length != 0){ %>
+                        <%= cards[0].question %>
+                    <% } %>
+                </p>
             </div>
             <div class="df">
                 <div id="answer-container">
                     <input type="text" id="answer-attempt">
-                    <button type="submit" class="button" id="answer-button">Enter</button>
+                    <button type="button" class="button" id="answer-button">Enter</button>
                 </div>
                 <div>
                     <button id="restart" class="control-btn">

@@ -1,6 +1,6 @@
 <%- include('header') %>
 
-<div id="card-page" class="df0">
+<div id="card-page" class="df1 w75">
     <div id="deck-sidebar" class="p1 dn">
         <ul>
             <% for(let i = 0; i < decks.length; i++){ %>
@@ -8,15 +8,18 @@
             <% } %>
         </ul>
     </div>
-    <div id="card-wrapper">
+    <div id="card-wrapper" class="w100">
+
+        <div id="error-message" class="dn m1 p1 error-message error-border"></div>
+        <div id="success-message" class="dn m1 p1 success-message success-border"></div>
+    
         <div class="p3" id="card-header">
             <h2 class="tc"><%= deck.name %></h2>
     
             <div class="mode-buttons">
                 <h3>Mode:</h3>
-                <div class="mode-option" data-href="/decks/<%= deck.id %>/"><input type="radio" name="mode" id="study-mode" checked><label for="study-mode">  Study (Normal)</label></div>
-                <!-- <div class="mode-option" data-href="/decks/<%= deck.id %>/easyquiz"><input type="radio" name="mode" id="easy-mode"><label for="easy-mode">  Quiz (Easy)</label></div> -->
-                <div class="mode-option" data-href="/decks/<%= deck.id %>/hardquiz"><input type="radio" name="mode" id="hard-mode"><label for="hard-mode">  Quiz (Hard)</label></div>
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/"><input type="radio" name="mode" id="study-mode" checked><label for="study-mode">  Study</label></div>
+                <div class="mode-option" data-href="/decks/<%= deck.id %>/quiz"><input type="radio" name="mode" id="hard-mode"><label for="hard-mode">  Quiz</label></div>
             </div>
             <div class="df">
                 <button class="button" id="add-card">Add Card</button>
@@ -27,8 +30,12 @@
         </div>
 
         <div class="p3" id="card-container">
-            <div id="main-card" class="df0 main-card trigger">
-                <p class="p2"><%= cards[0].question %></p>
+            <div id="main-card" class="df0 main-card trigger w75">
+                <p class="p2">
+                    <% if(cards.length != 0){ %>
+                        <%= cards[0].question %>
+                    <% } %>
+                </p>
             </div>
             <div class="df" id="card-buttons">
                 <div>
@@ -62,31 +69,39 @@
 
         <div class="p3 dn" id="add-card-form">
             <div class="main-card df0">
-                <label for="card-quesiton">Question</label>
-                <input type="text" name="card-quesiton" id="card-quesiton">
+                <label for="card-question">Question</label>
+                <input type="text" name="card-question" id="add-card-question">
 
                 <label for="card-answer">Answer</label>
-                <input type="text" name="card-answer" id="card-answer">
+                <input type="text" name="card-answer" id="add-card-answer">
+
+                <input type="hidden" value="<%= deck.id %>" id="add-deck-id" name="deck_id">
+
+                <div class="form-message p_5 m1 error-message error-border dn"></div>
             </div>
 
             <div class="df">
                 <button type="button" id="" class="button cancel-btn">Cancel</button>
-                <button type="button" id="add-submit-btn" class="action-btn">Submit</button>
+                <button type="button" id="add-card-btn" class="action-btn">Submit</button>
             </div>
         </div>
 
         <div class="p3 dn" id="edit-card-form">
             <div class="main-card df0">
-                <label for="card-quesiton">Question</label>
-                <input type="text" name="card-quesiton" id="card-quesiton">
+                <input type="hidden" value=0 id="edit-card-id">
+
+                <label for="card-question">Question</label>
+                <input type="text" name="card-question" id="edit-card-question">
 
                 <label for="card-answer">Answer</label>
-                <input type="text" name="card-answer" id="card-answer">
+                <input type="text" name="card-answer" id="edit-card-answer">
+                
+                <div class="form-message p_5 m1 error-message error-border dn"></div>
             </div>
 
             <div class="df">
                 <button type="button" id="" class="button cancel-btn">Cancel</button>
-                <button type="button" id="edit-submit-btn" class="action-btn">Update</button>
+                <button type="button" id="edit-card-btn" class="action-btn">Update</button>
             </div>
         </div>
 
@@ -94,9 +109,14 @@
             <div class="main-card df0">
                 <p>Are you sure you want to delete this card?</p>
             </div>
+
+            <input type="hidden" value=0 id="delete-card-id">
+
             <div class="df">
                 <button type="button" id="" class="button cancel-btn">Cancel</button>
-                <button type="button" id="delete-submit-btn" class="action-btn">Delete</button>
+                <button type="button" id="delete-card-btn" class="action-btn">Delete</button>
+                
+                <div class="form-message p_5 m1 error-message error-border dn"></div>
             </div>
         </div>
 
@@ -105,8 +125,10 @@
     </div>
     <div id="card-sidebar" class="p1 dn">
         <ul>
-            <% for(let i = 0; i < cards.length; i++){ %>
-                <li data-name="<%= cards[i].question %>" class="card-list"><p class="di"><%= cards[i].question %></p><p class="di"><%= cards[i].answer %></p></li>
+            <% if(cards.length > 0){ %>
+                <% for(let i = 0; i < cards.length; i++){ %>
+                    <li id="card-option-<%= cards[i].id %>" data-name="<%= cards[i].question %>" class="card-list"><p class="di"><%= cards[i].question %></p><p class="di"><%= cards[i].answer %></p></li>
+                <% } %>
             <% } %>
         </ul>
     </div>

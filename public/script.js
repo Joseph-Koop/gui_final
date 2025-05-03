@@ -1,8 +1,44 @@
 //script.js
-$(document).ready( function(){
 
+export var index = 0;
+
+export function setIndex(index0){
+    index = index0;
+}
+
+export function reset(){
+    if(cards.length == 0 || index >= cards.length || index < 0){
+        $('#main-card p').html('No cards available').css('border', '0px');    
+        return;
+    }
+    $('#main-card p').html(`${cards[index].question}`).css('border', '0px');
+}
+
+export function hideDeckForms(){
+    $('#deck-container').removeClass('dn');
+    $('#add-deck-form').addClass('dn');
+    $('#delete-deck-form').addClass('dn');
+    
+    $('#error-message').text('').addClass('dn');
+
+    reset();
+}
+
+export function hideForms(){
+    $('#card-container').removeClass('dn');
+    $('#add-card-form').addClass('dn');
+    $('#edit-card-form').addClass('dn');
+    $('#delete-card-form').addClass('dn');
+    
+    $('#error-message').text('').addClass('dn');
+    $('.form-message').text('').addClass('dn');
+
+    reset();
+}
+
+$(document).ready( function(){
     lucide.createIcons();
-    var index = 0;
+    
     let isRunning = false;
 
     function shuffle(){
@@ -12,12 +48,10 @@ $(document).ready( function(){
         }
     }
 
-    function reset(){
-        $('#main-card p').html(`${cards[index].question}`).css('border', '0px');
-    }
-
     function toggleMenu(){
         $('#deck-sidebar').addClass('dn').removeClass('active');
+        $('#expand-deck-btn').text('<<');
+
         $('#card-sidebar').toggleClass('dn').toggleClass('active');
         if($('#expand-btn').text() == '>>'){
             $('#expand-btn').text('<<');
@@ -28,6 +62,8 @@ $(document).ready( function(){
 
     function toggleDeckMenu(){
         $('#card-sidebar').addClass('dn').removeClass('active');
+        $('#expand-btn').text('>>');
+
         $('#deck-sidebar').toggleClass('dn').toggleClass('active');
         if($('#expand-deck-btn').text() == '<<'){
             $('#expand-deck-btn').text('>>');
@@ -36,11 +72,43 @@ $(document).ready( function(){
         }
     }
 
-    function hideForms(){
-        $('#card-container').removeClass('dn');
-        $('#add-card-form').addClass('dn');
-        $('#edit-card-form').addClass('dn');
-        $('#delete-card-form').addClass('dn');
+    function moveForward(){
+        if(index < cards.length - 1){
+            index++;
+            reset();
+
+            $('#main-card').removeClass('slide-right slide-left flip').find('p').removeClass('text-flip');
+            void $('#main-card')[0].offsetWidth;
+            $('#main-card').addClass('slide-right');
+
+        }else if(window.location.pathname.includes('/quiz')){
+            $('#answer-button').prop('disabled', true);
+            $('#success-message').removeClass('dn').text('Quiz Complete!');
+        }
+        isRunning = false;
+
+    }
+
+    function flipCard(){
+        if(cards.length == 0 || index >= cards.length || index < 0){
+            $('#main-card p').html('No card to flip.').css('border', '0px');
+            return;    
+        }
+
+        $('#main-card').removeClass('flip slide-left slide-right').find('p').removeClass('text-flip');
+        void $('#main-card')[0].offsetWidth;
+        $('#main-card').addClass('flip').find('p').addClass('text-flip');
+
+        setTimeout(() => {
+            console.log(cards[index].question, $('#main-card p').text().trim());
+            if(cards[index].question == $('#main-card p').text().trim()){
+                $('#main-card p').html(`${cards[index].answer}`).css('border', '5px solid yellow');
+            }else if(cards[index].answer == $('#main-card p').text().trim()){
+                reset();
+            }else{
+                console.log("Error occurred: match not found.");
+            }
+        }, 250);
     }
 
     function hideAllForms(){
@@ -48,42 +116,9 @@ $(document).ready( function(){
         $('#add-card-form').addClass('dn');
         $('#edit-card-form').addClass('dn');
         $('#delete-card-form').addClass('dn');
-    }
-
-    function moveForward(){
-        if(index < cards.length - 1){
-            console.log("before", index);
-            index++;
-            console.log("after", index);
-            reset();
-
-            $('#main-card').removeClass('slide-right slide-left');
-            void $('#main-card')[0].offsetWidth;
-            $('#main-card').addClass('slide-right');
-
-            if(index == cards.length - 1){
-                isRunning = true;
-            }else{
-                isRunning = false;
-            }
-        }
-    }
-
-    function flipCard(){
-        $('#main-card').removeClass('flip').find('p').removeClass('text-flip');
-
-        void $('#main-card')[0].offsetWidth;
-        $('#main-card').addClass('flip').find('p').addClass('text-flip');
-
-        setTimeout(() => {
-            if(cards[index].question == $('#main-card p').text()){
-                $('#main-card p').html(`${cards[index].answer}`).css('border', '5px solid yellow');
-            }else if(cards[index].answer == $('#main-card p').text()){
-                reset();
-            }else{
-                console.log("Error occurred: match not found.");
-            }
-        }, 250);
+        
+        $('#error-message').text('').addClass('dn');
+        $('.form-message').text('').addClass('dn');
     }
 
     $('#answer-button').on('click', function(){
@@ -110,7 +145,8 @@ $(document).ready( function(){
     });
 
     $('#answer-attempt').on('keydown', function(event){
-        if(event.key == 'Enter'){
+        if(event.key == 'Enter') {
+            if($('#answer-button').prop('disabled')) return;
             $('#answer-button').click();
         }
     });
@@ -171,6 +207,9 @@ $(document).ready( function(){
         reset();
         $('#correct-score').text(0);
         $('#total-score').text(0);
+        
+        $('#answer-button').prop('disabled', false);
+        $('#success-message').addClass('dn').text('');
     });
         
     $('#shuffle').on('click', function(){
@@ -179,16 +218,15 @@ $(document).ready( function(){
         reset();
     });
 
-    $('.card-list').on('click', function(){
-        console.log($(this).data('name'));
+    $('#card-sidebar ul').on('click', '.card-list', function(){
         index = cards.findIndex(card => card.question == $(this).data('name'));
+        hideForms();
         toggleMenu();
         reset();
     });
 
     $('.deck-list').on('click', function(){
-        console.log($(this).data('id'));
-        id=$(this).data('id');
+        let id = $(this).data('id');
         window.location.href = `/decks/${id}`;
     });
 
@@ -200,11 +238,15 @@ $(document).ready( function(){
     $('#edit-card').on('click', function(){
         hideAllForms();
         $('#edit-card-form').removeClass('dn');
+        $('#edit-card-id').val(cards[index].id);
+        $('#edit-card-question').val(cards[index].question);
+        $('#edit-card-answer').val(cards[index].answer);
     });
 
     $('#delete-card').on('click', function(){
         hideAllForms();
         $('#delete-card-form').removeClass('dn');
+        $('#delete-card-id').val(cards[index].id);
     });
 
     $('.cancel-btn').on('click', function(){
@@ -233,16 +275,12 @@ $(document).ready( function(){
 
 
 
-    function hideDeckForms(){
-        $('#deck-container').removeClass('dn');
-        $('#add-deck-form').addClass('dn');
-        $('#delete-deck-form').addClass('dn');
-    }
-
     function hideAllDeckForms(){
         $('#deck-container').addClass('dn');
         $('#add-deck-form').addClass('dn');
         $('#delete-deck-form').addClass('dn');
+        
+        $('#error-message').text('').addClass('dn');
     }
 
     $('.deck-cancel-btn').on('click', function(){

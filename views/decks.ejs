@@ -1,18 +1,22 @@
 <%- include('header') %>
 
-<div id="deck-wrapper">
+<div id="deck-wrapper" class="w75">
+
+    <div id="error-message" class="dn m1 p1 error-message error-border"></div>
+    <div id="success-message" class="dn m1 p1 success-message success-border"></div>
+
     <div class="df p3" id="deck-header">
         <button class="button" id="add-deck">Add Deck</button>
         <h3>My Decks</h3>
         <button class="button" id="delete-deck">Delete Deck</button>
     </div>
     <div class="df0 p3" id="deck-container">
-        <div class="df0 main-deck">
-            <ul>
+        <div class="df0 main-deck w75">
+            <ul id="deck-block-list" class="w100">
                 <% for(let i = 0; i < decks.length; i++){ %>
-                    <li class="p1">
+                    <li class="p1 w100" id="deck-<%= decks[i].id %>">
                         <a href="/decks/<%= decks[i].id %>">
-                            <div class="deck">
+                            <div class="deck w100">
                                 <p><%= decks[i].name %></p>
                             </div>
                         </a>
@@ -25,9 +29,10 @@
     <div class="p3 dn" id="add-deck-form">
         <div class="main-card df0">
             <label for="deck-name">Name</label>
-            <input type="text" name="deck-name" id="deck-name">
-        </div>
+            <input type="text" name="deck-name" id="add-deck-name">
 
+            <div class="form-message m1 error-message error-border dn"></div>
+        </div>
         <div class="df">
             <button type="button" id="" class="button deck-cancel-btn">Cancel</button>
             <button type="button" id="add-deck-btn" class="action-btn">Submit</button>
@@ -37,11 +42,14 @@
     <div class="p3 dn" id="delete-deck-form">
         <div class="main-card df0">
             <label for="select-deck">Select a deck to delete: </label>
-            <select name="select-deck" id="select-deck">
+            <select name="select-deck" id="delete-deck-id">
+                <option value="0" disabled selected>Select</option>
                 <% for(let i = 0; i < decks.length; i++){ %>
-                    <option value="<%= decks[i].id %>"><%= decks[i].name %></option>
+                    <option id="deck-option-<%= decks[i].id %>" value="<%= decks[i].id %>"><%= decks[i].name %></option>
                 <% } %>
             </select>
+
+            <div class="form-message m1 error-message error-border dn"></div>
         </div>
         <div class="df">
             <button type="button" id="" class="button deck-cancel-btn">Cancel</button>
