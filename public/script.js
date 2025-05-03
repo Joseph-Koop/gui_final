@@ -20,6 +20,7 @@ export function hideDeckForms(){
     $('#delete-deck-form').addClass('dn');
     
     $('#error-message').text('').addClass('dn');
+    $('.form-message').text('').addClass('dn');
 
     reset();
 }

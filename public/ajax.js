@@ -66,7 +66,7 @@ $(document).ready(function(){
 
             if(data.err){
                 $('#success-message').text('').addClass('dn');
-                $('#add-card-form #form-message').text(data.err).removeClass('dn');
+                $('#add-card-form .form-message').text(data.err).removeClass('dn');
                 return;
             }
 
